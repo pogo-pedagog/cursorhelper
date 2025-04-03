@@ -110,12 +110,12 @@ wget https://cursor.blob.core.windows.net/remote-releases/[VERSION-COMMIT]/vscod
 tar -zxvf vscode-reh-linux-x64.tar.gz
 
 # Create the cursor server directory if it doesn't exist
-mkdir -p ~/.cursor-server/bin/[VERSION-COMMIT]
+mkdir -p ~/.cursor-server/bin/[COMMIT]
 
 # Copy files to the cursor server directory
 # Example for commit fe574d0820377383143b2ea26aa6ae28b3425220:
 # cp -r vscode-reh-linux-x64/* ~/.cursor-server/bin/fe574d0820377383143b2ea26aa6ae28b3425220/
-cp -r vscode-reh-linux-x64/* ~/.cursor-server/bin/[VERSION-COMMIT]/
+cp -r vscode-reh-linux-x64/* ~/.cursor-server/bin/[COMMIT]/
 ```
 
 
