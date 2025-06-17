@@ -30,7 +30,7 @@ Open Windows Settings, navigate to Default Apps, search for "URL" or scroll to U
 ### Install Cursor Server on Remote Machine
 In Cursor, go to Help > About to view version information. Connect to your remote machine terminal, then download and run the cursorhelper.sh script:
 ```bash
-curl -O https://github.com/pogo-pedagog/cursorhelper/raw/refs/heads/main/cursorhelper.sh
+curl -O https://raw.githubusercontent.com/pogo-pedagog/cursorhelper/refs/heads/main/cursorhelper.sh
 chmod +x cursorhelper.sh
 ./cursorhelper.sh
 ```
