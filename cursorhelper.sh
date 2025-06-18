@@ -50,8 +50,10 @@ if [[ -z "$input" ]]; then
 fi
 
 # Extract version and commit, stripping whitespace
-version=$(echo "$input" | grep "^Version:" | sed 's/^Version:\s*\([0-9.]*\)\s*$/\1/')
-commit=$(echo "$input" | grep "^Commit:" | sed 's/^Commit:\s*\([a-f0-9]*\)\s*$/\1/')
+version=$(echo "$input" | grep -m1 "^Version:" | \
+  sed -E 's/^Version:[[:space:]]*([0-9.]+)[[:space:]]*$/\1/')
+commit=$(echo "$input" | grep -m1 "^Commit:" | \
+  sed -E 's/^Commit:[[:space:]]*([a-f0-9]+)[[:space:]]*$/\1/')
 
 # Validate version and commit
 if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
@@ -82,13 +84,8 @@ if ! curl -L --fail "$url" -o "$temp_dir/package.tar.gz"; then
 fi
 
 echo "Extracting package..."
-if ! tar -xzf "$temp_dir/package.tar.gz" -C "$temp_dir"; then
+if ! tar -xzf "$temp_dir/package.tar.gz" -C "$target_dir" --strip-components=1; then
     error_exit "Failed to extract package"
-fi
-
-echo "Installing to $target_dir..."
-if ! mv "$temp_dir/vscode-reh-linux-x64"/* "$target_dir/"; then
-    error_exit "Failed to move files to target directory"
 fi
 
 echo "Successfully installed Cursor server binaries"
