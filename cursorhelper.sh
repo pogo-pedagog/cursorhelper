@@ -50,8 +50,8 @@ if [[ -z "$input" ]]; then
 fi
 
 # Extract version and commit, stripping whitespace
-version=$(echo "$input" | grep "^Version:" | sed 's/^Version:\s*\([0-9.]*\)\s*$/\1/')
-commit=$(echo "$input" | grep "^Commit:" | sed 's/^Commit:\s*\([a-f0-9]*\)\s*$/\1/')
+version=$(echo "$input" | grep "^Version:" | sed -E 's/^Version:[[:space:]]*([0-9.]+)[[:space:]]*$/\1/')
+commit=$(echo "$input" | grep "^Commit:" | sed -E 's/^Commit:[[:space:]]*([a-f0-9]{40})[[:space:]]*$/\1/')
 
 # Validate version and commit
 if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
