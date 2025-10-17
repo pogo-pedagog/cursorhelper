@@ -11,31 +11,52 @@ If you want stuff like the links in Azure thingies to work, register cursor as a
 ### Prerequisites
 - Cursor installed on your system
 - Visual Studio Code installed on your system
-- Remote machine with Linux running and a console available somehow (terminal in azure works fine)
+- Remote machine with Linux running and a console available somehow (terminal in Azure ML works fine)
 
-### Configure Microsoft Authentication
-Navigate to Visual Studio Code's extensions folder:
-```
-C:\Users\[YourUsername]\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\microsoft-authentication
-```
+### 1. Configure Microsoft Authentication
+Navigate to ***Visual Studio Code's extensions*** folder:  
 
-Copy the entire microsoft-authentication folder to Cursor's extensions directory:
-```
-C:\Users\[YourUsername]\AppData\Local\Programs\cursor\resources\app\extensions
-```
+    C:\Users\[YourUsername]\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\
 
-### Configure URL Handling
-Open Windows Settings, navigate to Default Apps, search for "URL" or scroll to URL protocol handlers. Find the vscode:// protocol and change it to use Cursor instead of VS Code.
 
-### Install Cursor Server on Remote Machine
-In Cursor, go to Help > About to view version information. Connect to your remote machine terminal, then download and run the cursorhelper.sh script:
+Copy and replace the entire `microsoft-authentication` folder to ***Cursor's extensions*** directory:  
+
+    C:\Users\[YourUsername]\AppData\Local\Programs\cursor\resources\app\extensions
+
+### 2. Copy Azure Machine Learning extension from VSCode
+
+Navigate to VS Code extra extensions folder:
+
+    C:\Users\[YourUsername]\.vscode\extensions\
+
+Copy the folder starting with `ms-toolsai.vscode-ai-remote-` into cursor extensions folder (see above).
+
+### 3. Configure URL Handling
+Open Windows Settings, navigate to Default Apps, search for "URL" or scroll to URL protocol handlers. Find the vscode:// protocol and change it to use Cursor instead of VS Code.  
+
+For Windows 11 you need to edit the registry directly. 
+- Open regedit. 
+- Go to `Computer\HKEY_CLASSES_ROOT\vscode\shell\open\command` 
+- Enter `"C:\Users\[YourUsername]\AppData\Local\Programs\cursor\cursor.exe" "--open-url" "--" "%1"` 
+
+### 4. Install Cursor Server on Remote Machine
+
+First, connect to your remote machine terminal (not locally), then download and run the cursorhelper.sh script:
 ```bash
+cd 
 curl -O https://raw.githubusercontent.com/pogo-pedagog/cursorhelper/refs/heads/main/cursorhelper.sh
 chmod +x cursorhelper.sh
-./cursorhelper.sh
 ```
 
-Then just paste the contents of Cursor's About dialog followed by pressing Ctrl+D. The script should automatically download and install the appropriate Cursor server binaries.
+NB: The following part might need to be done again whenever cursor updates to new version.
+
+- In Cursor, go to Help > About and copy version information
+- Close Cursor NB! important
+- Open remote computer terminal if not done so already
+- Run the script: `./cursorhelper.sh`
+- Paste the version information followed by pressing Ctrl+D.
+
+The script should automatically download and install the appropriate Cursor server binaries.
 
 Cursor might pop up a button that asks you to "kill and restart the remote server" or something similar, do NOT let it do that, close cursor and restart it. If you by mistake let it do that, it'll nuke the server component and you'll have to re-run the installation as per above.
 
@@ -94,7 +115,10 @@ Congrats, now you should be able to connect just as in VS Code.
 - If authentication fails, try restarting Cursor
 - If MS auth complains, just do something on the compute instance from azure web, it'll hopefully ask you to reauth and after that things work fine (at least for me :D ).
 
-### Manual Installation of Cursor Server Component
+### Cursorhelper not downloading
+If curl is not downloading correctly, restart the terminal. It also has trouble with echo. Restarting can help.
+
+## Manual Installation of Cursor Server Component
 If the cursorhelper.sh script doesn't work, you can manually install the server:
 
 In Cursor, go to Help > About and note the version number (e.g., 0.44.11) and commit hash (e.g., fe574d0820377383143b2ea26aa6ae28b3425220).
