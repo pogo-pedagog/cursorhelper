@@ -51,9 +51,9 @@ if [[ -z "$input" ]]; then
     exit 1
 fi
 
-# Extract version and commit, stripping whitespace
-# Use POSIX character classes for macOS/BSD sed compatibility and allow trailing text
-version=$(echo "$input" | grep "^Version:" | sed -E 's/^Version:[[:space:]]*([0-9.]+).*$/\1/')
+# Extract version and commit, stripping whitespace and unwanted text
+# Version: extract only semantic version (X.Y.Z) ignoring text like "(user setup)"
+version=$(echo "$input" | grep "^Version:" | sed -E 's/^Version:[[:space:]]*([0-9]+\.[0-9]+\.[0-9]+).*$/\1/')
 commit=$(echo "$input" | grep "^Commit:" | sed -E 's/^Commit:[[:space:]]*([a-f0-9]{40}).*$/\1/')
 
 # Validate version and commit
