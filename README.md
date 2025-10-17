@@ -43,7 +43,6 @@ For Windows 11 you need to edit the registry directly.
 
 First, connect to your remote machine terminal (not locally), then download and run the cursorhelper.sh script:
 ```bash
-cd 
 curl -O https://raw.githubusercontent.com/pogo-pedagog/cursorhelper/refs/heads/main/cursorhelper.sh
 chmod +x cursorhelper.sh
 ```
