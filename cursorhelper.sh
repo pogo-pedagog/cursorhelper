@@ -7,6 +7,7 @@ Usage: $(basename "$0") [OPTIONS] [FILE]
 
 Download and install Cursor server binaries based on version information.
 If FILE is not provided, reads from standard input.
+Press Ctrl+D to finish input when reading from the terminal.
 
 Options:
   -h, --help    Show this help message and exit
